@@ -18,18 +18,20 @@ if(!function_exists('jsonkit_has_option'))
      * @param $option
      * @param $object
      * @param bool $return
+     * @param bool $strict
      * @return bool
      */
-    function jsonkit_has_option($option, $object, $return = false)
+    function jsonkit_has_option($option, $object, $return = false, $strict = false)
     {
-        $class = get_class($object);
-
-        if(property_exists($object, 'options') && array_key_exists($object->options, $option))
+        try
         {
-            return ((bool)$return) ? $object->options[$option] : true;
-        }else if(property_exists($class, 'options') && array_key_exists($class::$options, $option)){
-            return ((bool)$return) ? $class::$options[$option] : true;
+            if(jsonkit_can_options($object))
+            {
+                $options = (array)\Setcooki\JsonKit\Reflection\Reflection::propertyFactory($object, 'options');
+                return (($strict) ? (array_key_exists($option, $options) && jsonkit_is_value($options[$option])) : array_key_exists($option, $options));
+            }
         }
+        catch(\ReflectionException $e) {}
         return false;
     }
 }
