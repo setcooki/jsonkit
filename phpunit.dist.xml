@@ -1,0 +1,30 @@
+<phpunit
+        bootstrap="tests/bootstrap.php"
+        backupGlobals="true"
+        backupStaticAttributes="true"
+        convertErrorsToExceptions="true"
+        convertNoticesToExceptions="true"
+        convertWarningsToExceptions="true"
+        stopOnError="false"
+        stopOnFailure="false"
+        stopOnIncomplete="false"
+        stopOnSkipped="false"
+        syntaxCheck="true"
+        colors="true"
+        verbose="true"
+>
+    <testsuites>
+        <testsuite name="JsonKit Unit Test Suite" phpVersion="5.6.1"  phpVersionOperator=">=">
+            <directory>./tests/Unit/</directory>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <blacklist>
+            <directory suffix=".php">./vendor/</directory>
+        </blacklist>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">./src</directory>
+            <directory suffix=".php">./lib</directory>
+        </whitelist>
+    </filter>
+</phpunit>
